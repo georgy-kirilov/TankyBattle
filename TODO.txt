@@ -1,1 +1,4 @@
-Some text for test
+GameObject -> x, y, width, height, intersects(GameObject) 
+Direction -> Up, Left, Down, Right 
+Bullet -> Move (only in single direction) 
+Tank -> direction, rotate(), move(), speed, ?shoot()?
