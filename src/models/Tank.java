@@ -1,6 +1,6 @@
 package models;
 
-import enums.Directions;
+import enums.Direction;
 
 public class Tank {
 	/*
@@ -10,8 +10,8 @@ public class Tank {
 	
 	private double x;
 	private double y;
-	private double speed;
-	private Directions directions;
+	private double speed = 2;
+	private Direction direction;
 	
 	public Tank(double x, double y) 
 	{
@@ -39,26 +39,25 @@ public class Tank {
 		this.y = y;
 	}
 
-	public double getSpeed() 
+	public Direction getDirections() 
 	{
-		return speed;
+		return direction;
 	}
 
-	public void setSpeed(double speed) 
+	public void setDirections(Direction direction) 
 	{
-		this.speed = speed;
+		this.direction = direction;
 	}
-
-	public Directions getDirections() 
+	public void move() 
 	{
-		return directions;
+		switch(direction) 
+		{
+		case UP: y -= speed;
+		case DOWN: 	y += speed;
+		case LEFT: x-= speed;
+		case RIGHT: x+= speed;
+		}
 	}
-
-	public void setDirections(Directions directions) 
-	{
-		this.directions = directions;
-	}
-	
 	
 	
 

@@ -3,54 +3,48 @@ package models;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import enums.Directions;
+import enums.Direction;
 
-public class Bullet {
-	private double x;
-	private double y;
+public class Bullet extends GameObject{
+	private int x;
+	private int y;
 	
-	public Bullet(double x, double y) 
+    private Direction face;
+    private int speed=5;
+	
+	public Bullet(int x, int y) 
 	{
 		setX(x);
 		setY(y);
 	}
 	
-	public double getX() 
+	public int getX() 
 	{
 		return x;
 	}
 	
-	public void setX(double x) 
+	public void setX(int x) 
 	{
 		this.x = x;
 	}
 	
-	public double getY()
+	public int getY()
 	{
 		return y;
 	}
 	
-	public void setY(double y)
+	public void setY(int y)
 	{
 		this.y = y;
 	}
-	public void move(Directions face) 
+	public void move() 
 	{
-		if(face.equals("DOWN")) 
+		switch(face) 
 		{
-			x -= 5;
-		}
-		else if(face.equals("UP")) 
-		{
-			y -= 5;
-		}
-		else if(face.equals("LEFT")) 
-		{
-			x -= 5;
-		}
-		else 
-		{
-			x += 5;
+		case UP: y -= speed;
+		case DOWN: 	y += speed;
+		case LEFT: x-= speed;
+		case RIGHT: x+= speed;
 		}
 		
 	}
