@@ -11,9 +11,9 @@ public class GameObjectTest
 
 	public static void main(String[] args)
 	{
-		GameObject obj1 = new GameObject(4,5,4,6,true);
-		GameObject obj2 = new GameObject(4,9,4,6,true);
-		GameObject obj3 = new GameObject(30,30,12,12,true);
+		GameObject obj1 = new GameObject(4,5,4,6);
+		GameObject obj2 = new GameObject(4,9,4,6);
+		GameObject obj3 = new GameObject(10,10, 15,15);
 		
 		System.out.println(obj1.intersect(obj2));
 		

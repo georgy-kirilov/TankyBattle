@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JComponent;
 
+@SuppressWarnings("serial")
 public class GameObject extends JComponent
 {
 	private int x;
@@ -15,18 +16,13 @@ public class GameObject extends JComponent
 	private boolean visible;
 	private final static Color BACKGROUND_COLOR = new Color(21,43,22);
 	
-	public GameObject()
-	{
-		
-	}
-	
-	public GameObject(int x, int y, int height, int width, boolean visible)
+	public GameObject(int x, int y, int height, int width)
 	{
 		setX(x);
 		setY(y);
 		setHeight(height);
 		setWidth(width);
-		setVisible(visible);
+		setVisible(true);
 	}
 	
 	public int getX()
@@ -87,6 +83,7 @@ public class GameObject extends JComponent
 								|| (g.getX() + g.getWidth() == this.getX()));
 	}
 	
+	@Override
 	public void paintComponent(Graphics graphics)
 	{
 		super.paintComponent(graphics);
@@ -94,7 +91,7 @@ public class GameObject extends JComponent
 		g.setColor(BACKGROUND_COLOR);
 		if (visible == true)
 		{
-			g.fillRect(x, y, width, height);
+			g.fillRect(x, y, x + width, y + height);
 			g.drawRect(x, y, width, height);			
 		}
 	}

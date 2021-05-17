@@ -1,64 +1,49 @@
 package models;
 
-import enums.Direction;
+import enums.*;
 
-public class Tank {
+@SuppressWarnings("serial")
+public class Tank extends GameObject
+{
+	//TODO:
+	//override paintComponent()
+	//direction and speed from constructor
+	//implement health
+	//fix move()
+	
+	private static final int HEIGHT = 20;
+	private static final int WIDTH = 10;
+	
 	/*
 	private int health;
-	private double strength;
 	*/
 	
-	private double x;
-	private double y;
 	private double speed = 2;
 	private Direction direction;
 	
-	public Tank(double x, double y) 
+	public Tank(int x, int y) 
 	{
-		setX(x);
-		setY(y);
-	}
-	
-	public double getX()
-	{
-		return x;
-	}
-	
-	public void setX(double x) 
-	{
-		this.x = x;
-	}
-	
-	public double getY() 
-	{
-		return y;
-	}
-	
-	public void setY(double y) 
-	{
-		this.y = y;
+		super(x, y, HEIGHT, WIDTH);
 	}
 
-	public Direction getDirections() 
+	public Direction getDirection() 
 	{
 		return direction;
 	}
 
-	public void setDirections(Direction direction) 
+	public void setDirection(Direction direction) 
 	{
 		this.direction = direction;
 	}
+	
 	public void move() 
 	{
 		switch(direction) 
 		{
-		case UP: y -= speed;
-		case DOWN: 	y += speed;
-		case LEFT: x-= speed;
-		case RIGHT: x+= speed;
+			case UP: ;
+			case DOWN: 	y += speed;
+			case LEFT: x-= speed;
+			case RIGHT: x+= speed;
 		}
 	}
-	
-	
-
 }
