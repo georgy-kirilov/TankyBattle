@@ -1,12 +1,19 @@
 package models;
 
-public class GameObject
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JComponent;
+
+public class GameObject extends JComponent
 {
 	private int x;
 	private int y;
 	private int height;
 	private int width;
 	private boolean visible;
+	private final static Color BACKGROUND_COLOR = new Color(21,43,22);
 	
 	public GameObject()
 	{
@@ -62,7 +69,6 @@ public class GameObject
 		this.height = height;
 	}
 	
-	
 	public void setWidth(int width)
 	{
 		this.width = width;
@@ -75,25 +81,21 @@ public class GameObject
 	
 	public boolean intersect(GameObject g)
 	{
-		if (this.getY() + this.getHeight() == g.getY())
+			return ((this.getY() + this.getHeight() == g.getY()) 
+						|| (this.getX() + this.getWidth() == g.getX())
+							|| (g.getY() + g.getHeight() == this.getY()) 
+								|| (g.getX() + g.getWidth() == this.getX()));
+	}
+	
+	public void paintComponent(Graphics graphics)
+	{
+		super.paintComponent(graphics);
+		Graphics2D g = (Graphics2D)graphics;
+		g.setColor(BACKGROUND_COLOR);
+		if (visible == true)
 		{
-			return true;
+			g.fillRect(x, y, width, height);
+			g.drawRect(x, y, width, height);			
 		}
-		
-		if (this.getX() + this.getWidth() == g.getX())
-		{
-			return true;
-		}
-		
-		if (g.getY() + g.getHeight() == this.getY())
-		{
-			return true;
-		}
-		
-		if (g.getX() + g.getWidth() == this.getX())
-		{
-			return true;
-		}
-		return false;
 	}
 }
