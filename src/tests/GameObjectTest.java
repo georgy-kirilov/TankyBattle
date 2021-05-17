@@ -4,7 +4,9 @@ import java.awt.Color;
 
 import javax.swing.JFrame;
 
+import enums.Direction;
 import models.GameObject;
+import models.Tank;
 
 public class GameObjectTest
 {
@@ -23,7 +25,12 @@ public class GameObjectTest
 		window.setVisible(true);
 		window.setLayout(null);
 		
+		
+		Tank t1= new Tank(50,50,300,5,Direction.UP);
+		t1.setVisible(true);
+		
 		window.add(obj3);
+		window.add(t1);
 		window.repaint();
 	}
 

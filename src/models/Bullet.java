@@ -8,20 +8,18 @@ import enums.Direction;
 
 public class Bullet extends GameObject
 {
-	// TODO:
-	// speed and direction from constructor
-	// fix move() -> getters and setters
-	
 	private static final int HEIGHT = 10;
 	private static final int WIDTH = 3;
 	
+
+	private int speed;
     private Direction face;
-    
-    private int speed = 5;
 	
-	public Bullet(int x, int y) 
+	public Bullet(int x, int y, int speed, Direction face) 
 	{
 		super(x, y, HEIGHT, WIDTH);
+		setSpeed(speed);
+		setFace(face);
 	}
 	
 	public void move() 
@@ -29,11 +27,26 @@ public class Bullet extends GameObject
 		switch(face) 
 		{
 			case UP: setY(getY() - speed);
-			case DOWN: 	y += speed;
-			case LEFT: x-= speed;
-			case RIGHT: x+= speed;
+			case DOWN: setY(getY() + speed);
+			case LEFT: setX(getX() - speed);
+			case RIGHT: setX(getX() + speed);
 		}
 		
+	}
+	public Direction getFace() {
+		return face;
+	}
+
+	public void setFace(Direction face) {
+		this.face = face;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
 	}
 	
 	@Override
@@ -44,4 +57,6 @@ public class Bullet extends GameObject
 		g.setColor(Color.yellow);
 		g.fillOval(getX(), getY(), getWidth(), getHeight());
 	}
+
+	
 }
