@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
+import drawers.tanks.ImageTankDrawer;
 import enums.Direction;
 import models.*;
 import models.tanks.HeavyTank;
@@ -26,7 +27,7 @@ public class Main
 		b.setBounds(0, 0, 500, 500);
 		b.addWall(new BrickWall(20, 20, 30, 100));
 		//b.addEnemyTank(new QuickTank(60, 60, Direction.UP));
-		b.setPlayer(new StandardTank(90, 60, Direction.DOWN));
+		b.setPlayer(new StandardTank(90, 60, Direction.DOWN, new ImageTankDrawer()));
 		b.addWall(new BrickWall(120, 400, 30, 100));
 		
 		b.addWall(new BrickWall(40, 300, 30, 100));
