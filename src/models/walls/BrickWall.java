@@ -4,8 +4,8 @@ import drawers.walls.WallDrawer;
 
 public class BrickWall extends Wall
 {
-	public BrickWall(int x, int y, int height, int width, WallDrawer wallDrawer)
+	public BrickWall(int x, int y, WallDrawer wallDrawer)
 	{
-		super(x, y, height, width, wallDrawer);
+		super(x, y, wallDrawer);
 	}
 }

@@ -2,6 +2,7 @@ package models.tanks;
 
 import java.awt.Graphics2D;
 
+import common.GlobalConstants;
 import drawers.tanks.TankDrawer;
 import enums.Direction;
 import models.contracts.MovableGameObject;
@@ -9,14 +10,14 @@ import models.contracts.Rotatable;
 
 public abstract class Tank extends MovableGameObject implements Rotatable
 {
-	private static final int HEIGHT = 40;
-	private static final int WIDTH = 40;
+	private static final int HEIGHT = GlobalConstants.CELL_SIZE - 1;
+	private static final int WIDTH = GlobalConstants.CELL_SIZE - 1;
 	
 	private final TankDrawer tankDrawer;
 	
 	public Tank(int x, int y, int speed, Direction direction, TankDrawer tankDrawer)
 	{
-		super(x, y, HEIGHT, WIDTH, speed, direction);
+		super(x, y, HEIGHT - speed, WIDTH - speed, speed, direction);
 		this.tankDrawer = tankDrawer;
 	}
 	

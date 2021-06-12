@@ -27,7 +27,7 @@ public class Battlefield extends JPanel
 		gameObjects = new ArrayList<GameObject>();
 		enemyTanks = new ArrayList<Tank>();
 		
-		this.setBackground(Color.GRAY);
+		this.setBackground(Color.BLACK);
 		this.setFocusable(true);
 	}
 	
@@ -49,7 +49,7 @@ public class Battlefield extends JPanel
 		
 		for (GameObject object : gameObjects)
 		{
-			if (object != getPlayer() && object.intersect(getPlayer()))
+			if (object != getPlayer() && object.intersects(getPlayer()))
 			{
 				getPlayer().moveBack();
 				break;
@@ -81,7 +81,7 @@ public class Battlefield extends JPanel
 			
 			for (GameObject object : gameObjects)
 			{
-				if (enemyTank != object && enemyTank.intersect(object))
+				if (enemyTank != object && enemyTank.intersects(object))
 				{
 					enemyTank.moveBack();
 					break;

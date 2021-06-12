@@ -33,7 +33,7 @@ public class ImageWallDrawer implements WallDrawer
 				horizontal = ImageIO.read(new File(String.format(PATH_FORMAT, wallType, "horizontal")));
 			}
 			
-			BufferedImage image = wall.getWidth() > wall.getHeight() ? horizontal : vertical;
+			BufferedImage image = wall.getWidth() > wall.getHeight() ? vertical : horizontal;
 			g.drawImage(image, wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight(), null);
 		}
 		catch (IOException e)

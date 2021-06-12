@@ -57,7 +57,7 @@ public abstract class GameObject
 		this.width = width;
 	}
 	
-	public boolean intersect(GameObject object)
+	public boolean intersects(GameObject object)
 	{
 		return this.hasAnyCornersInside(object) || object.hasAnyCornersInside(this);
 	}

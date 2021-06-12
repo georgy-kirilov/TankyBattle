@@ -9,6 +9,7 @@ import drawers.tanks.ImageTankDrawer;
 import drawers.walls.ImageWallDrawer;
 import enums.Direction;
 import models.*;
+import models.contracts.GameObject;
 import models.tanks.HeavyTank;
 import models.tanks.QuickTank;
 import models.tanks.StandardTank;
@@ -19,19 +20,24 @@ public class Main
 	public static void main(String[] args) throws InterruptedException
 	{
 		JFrame f = new JFrame();
-		f.setBounds(0, 0, 500, 500);
+		f.setBounds(0, 0, 650, 650);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		f.setVisible(true);
 		f.setLayout(null);
 		
 		Battlefield b = new Battlefield();
-		b.setBounds(0, 0, 500, 500);
-		b.addWall(new BrickWall(20, 20, 30, 100, new ImageWallDrawer()));
+		b.setBounds(0, 0, 600, 600);
+		//b.addWall(new BrickWall(20, 20, 30, 100, new ImageWallDrawer()));
 		b.addEnemyTank(new HeavyTank(180, 60, Direction.RIGHT, new ImageTankDrawer()));
-		b.setPlayer(new HeavyTank(90, 60, Direction.DOWN, new ImageTankDrawer()));
-		b.addWall(new BrickWall(120, 400, 30, 100, new ImageWallDrawer()));
+		b.setPlayer(new StandardTank(90, 60, Direction.DOWN, new ImageTankDrawer()));
+		//b.addWall(new BrickWall(120, 400, 30, 100, new ImageWallDrawer()));
 		
-		b.addWall(new BrickWall(40, 300, 30, 100, new ImageWallDrawer()));
+		for (GameObject object : LevelParser.deserialize("./levels/level-one.txt"))
+		{
+			b.addWall((Wall)object);
+		}
+		
+		//b.addWall(new BrickWall(40, 300, 30, 100, new ImageWallDrawer()));
 		b.addKeyListener(new KeyListener()
 		{
 			
@@ -69,7 +75,7 @@ public class Main
 				}
 			}
 		});
-		b.addWall(new BrickWall(140, 20, 10, 30, new ImageWallDrawer()));
+		//b.addWall(new BrickWall(140, 20, 10, 30, new ImageWallDrawer()));
 		//b.addEnemyTank(new HeavyTank(120, 60, Direction.DOWN));
 		f.add(b);
 		
