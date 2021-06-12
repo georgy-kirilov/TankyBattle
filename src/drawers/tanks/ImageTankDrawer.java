@@ -1,7 +1,6 @@
 package drawers.tanks;
 
 import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -44,8 +43,6 @@ public class ImageTankDrawer implements TankDrawer
 		}
 		
 		BufferedImage image = directionImagePairs.get(tank.getDirection());
-		AffineTransform af = AffineTransform.getTranslateInstance(image.getWidth(), image.getHeight());
-		af.rotate(Math.toRadians(90), image.getWidth() / 2, image.getHeight() / 2);
 		g.drawImage(image, tank.getX(), tank.getY(), tank.getWidth(), tank.getHeight(), null);
 	}
 }

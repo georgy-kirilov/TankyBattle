@@ -59,14 +59,19 @@ public abstract class GameObject
 	
 	public boolean intersect(GameObject object)
 	{
-		int rightX = object.getX(), leftX = object.getX() + object.getWidth();
-		int topY = object.getY(), bottomY = object.getY() + object.getHeight();
-		
-		return isPointInside(rightX, topY) || isPointInside(rightX, bottomY) ||
-			   isPointInside(leftX, topY) || isPointInside(leftX, bottomY);
+		return this.hasAnyCornersInside(object) || object.hasAnyCornersInside(this);
 	}
 	
 	public abstract void draw(Graphics2D g);
+	
+	private boolean hasAnyCornersInside(GameObject object)
+	{
+		int rightX = object.getX(), leftX = object.getX() + object.getWidth();
+		int topY = object.getY(), bottomY = object.getY() + object.getHeight();
+		
+		return isPointInside(rightX, topY) || isPointInside(rightX, bottomY) 
+				|| isPointInside(leftX, topY) || isPointInside(leftX, bottomY);
+	}
 	
 	private boolean isPointInside(int x, int y)
 	{

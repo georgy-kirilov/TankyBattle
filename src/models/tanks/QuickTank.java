@@ -5,7 +5,7 @@ import enums.Direction;
 
 public class QuickTank extends Tank
 {
-	private static final int SPEED = 3;
+	private static final int SPEED = 5;
 
 	public QuickTank(int x, int y, Direction direction, TankDrawer tankDrawer)
 	{

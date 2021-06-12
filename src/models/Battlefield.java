@@ -33,11 +33,6 @@ public class Battlefield extends JPanel
 	
 	public void setPlayer(Tank player)
 	{
-		if (player == null)
-		{
-			throw new IllegalArgumentException("Player cannot be null");
-		}
-		
 		gameObjects.remove(this.player);
 		addGameObject(player);
 		this.player = player;

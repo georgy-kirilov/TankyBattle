@@ -1,19 +1,11 @@
 package models.walls;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import drawers.walls.WallDrawer;
 
 public class BrickWall extends Wall
 {
-	public BrickWall(int x, int y, int height, int width)
+	public BrickWall(int x, int y, int height, int width, WallDrawer wallDrawer)
 	{
-		super(x, y, height, width);
-	}
-
-	@Override
-	public void draw(Graphics2D g)
-	{
-		g.setColor(new Color(166, 42, 42));
-		g.fillRect(getX(), getY(), getWidth(), getHeight());
+		super(x, y, height, width, wallDrawer);
 	}
 }

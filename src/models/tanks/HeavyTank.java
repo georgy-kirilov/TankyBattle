@@ -1,8 +1,5 @@
 package models.tanks;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-
 import drawers.tanks.TankDrawer;
 import enums.Direction;
 
