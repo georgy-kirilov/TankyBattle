@@ -27,7 +27,7 @@ public class Battlefield extends JPanel
 		gameObjects = new ArrayList<GameObject>();
 		enemyTanks = new ArrayList<Tank>();
 		
-		this.setBackground(Color.BLACK);
+		this.setBackground(Color.LIGHT_GRAY);
 		this.setFocusable(true);
 	}
 	

@@ -11,29 +11,21 @@ import models.walls.Wall;
 
 public class ImageWallDrawer implements WallDrawer
 {
-	private static final String PATH_FORMAT = "./resources/walls/%s/%s.png";
+	private static final String PATH_FORMAT = "./resources/walls/%s.png";
 	
-	private BufferedImage vertical;
-	private BufferedImage horizontal;
+	private BufferedImage image;
 	
 	@Override
 	public void drawWall(Graphics2D g, Wall wall)
 	{
 		try
 		{
-			String wallType = wall.getClass().getSimpleName().replaceAll("Wall", "").toLowerCase();
-			
-			if (vertical == null)
+			if (image == null)
 			{
-				vertical = ImageIO.read(new File(String.format(PATH_FORMAT, wallType, "vertical")));
+				String wallType = wall.getClass().getSimpleName().replaceAll("Wall", "").toLowerCase();
+				image = ImageIO.read(new File(String.format(PATH_FORMAT, wallType)));
 			}
-			
-			if (horizontal == null)
-			{
-				horizontal = ImageIO.read(new File(String.format(PATH_FORMAT, wallType, "horizontal")));
-			}
-			
-			BufferedImage image = wall.getWidth() > wall.getHeight() ? vertical : horizontal;
+		
 			g.drawImage(image, wall.getX(), wall.getY(), wall.getWidth(), wall.getHeight(), null);
 		}
 		catch (IOException e)

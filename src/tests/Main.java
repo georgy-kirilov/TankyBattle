@@ -29,7 +29,7 @@ public class Main
 		b.setBounds(0, 0, 600, 600);
 		//b.addWall(new BrickWall(20, 20, 30, 100, new ImageWallDrawer()));
 		b.addEnemyTank(new HeavyTank(180, 60, Direction.RIGHT, new ImageTankDrawer()));
-		b.setPlayer(new StandardTank(90, 60, Direction.DOWN, new ImageTankDrawer()));
+		b.setPlayer(new QuickTank(90, 60, Direction.DOWN, new ImageTankDrawer()));
 		//b.addWall(new BrickWall(120, 400, 30, 100, new ImageWallDrawer()));
 		
 		for (GameObject object : LevelParser.deserialize("./levels/level-one.txt"))
