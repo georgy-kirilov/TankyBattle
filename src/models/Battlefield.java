@@ -3,19 +3,122 @@ package models;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.swing.JPanel;
 
+import enums.Direction;
+import models.contracts.GameObject;
+import models.tanks.Tank;
 import models.walls.Wall;
 
 public class Battlefield extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 	
+	private final Collection<GameObject> gameObjects;
+	private final Collection<Tank> enemyTanks;
+	
+	private Tank player;
+	
+	public Battlefield()
+	{
+		gameObjects = new ArrayList<GameObject>();
+		enemyTanks = new ArrayList<Tank>();
+		
+		this.setBackground(Color.GRAY);
+		this.setFocusable(true);
+	}
+	
+	public void setPlayer(Tank player)
+	{
+		if (player == null)
+		{
+			throw new IllegalArgumentException("Player cannot be null");
+		}
+		
+		gameObjects.remove(this.player);
+		addGameObject(player);
+		this.player = player;
+	}
+	
+	public Tank getPlayer()
+	{
+		return player;
+	}
+	
+	public void movePlayer()
+	{
+		getPlayer().move();
+		
+		for (GameObject object : gameObjects)
+		{
+			if (object != getPlayer() && object.intersect(getPlayer()))
+			{
+				getPlayer().moveBack();
+				break;
+			}
+		}
+	}
+	
+	public void rotatePlayer(Direction direction)
+	{
+		getPlayer().rotate(direction);
+	}
+	
+	public void addWall(Wall wall)
+	{
+		addGameObject(wall);
+	}
+	
+	public void addEnemyTank(Tank enemyTank)
+	{	
+		addGameObject(enemyTank);
+		enemyTanks.add(enemyTank);
+	}
+	
+	public void update()
+	{
+		for (Tank enemyTank : enemyTanks)
+		{
+			enemyTank.move();
+			
+			for (GameObject object : gameObjects)
+			{
+				if (enemyTank != object && enemyTank.intersect(object))
+				{
+					enemyTank.moveBack();
+					break;
+				}
+			}
+		}
+	}
+	
 	@Override
 	public void paint(Graphics graphics)
 	{
 		super.paint(graphics);
 		Graphics2D g = (Graphics2D) graphics;
+		
+		for (GameObject object : gameObjects)
+		{
+			object.draw(g);
+		}
+	}
+	
+	private void addGameObject(GameObject object)
+	{
+		if (object == null)
+		{
+			throw new IllegalArgumentException("You cannot add GameObject with null value");
+		}
+		
+		if (gameObjects.contains(object))
+		{
+			throw new IllegalStateException("You cannot have have duplicate game objects on the battlefield");
+		}
+		
+		gameObjects.add(object);
 	}
 }

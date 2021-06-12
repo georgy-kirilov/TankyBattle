@@ -14,6 +14,6 @@ public class BrickWall extends Wall
 	public void draw(Graphics2D g)
 	{
 		g.setColor(new Color(166, 42, 42));
-		g.drawRect(getX(), getY(), getWidth(), getHeight());
+		g.fillRect(getX(), getY(), getWidth(), getHeight());
 	}
 }

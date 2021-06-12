@@ -22,16 +22,12 @@ public abstract class MovableGameObject extends GameObject implements Movable
 
 	@Override
 	public void setSpeed(int speed)
-	{
-		if (speed < 0)
-		{
-			throw new IllegalArgumentException("Speed cannot be negative");
-		}
-		
+	{	
 		this.speed = speed;
 	}
 	
-	protected Direction getDirection()
+	@Override
+	public Direction getDirection()
 	{
 		return direction;
 	}
@@ -68,5 +64,13 @@ public abstract class MovableGameObject extends GameObject implements Movable
 		
 		setX(newX);
 		setY(newY);
+	}
+	
+	@Override
+	public void moveBack()
+	{
+		setSpeed(-getSpeed());
+		move();
+		setSpeed(-getSpeed());
 	}
 }
