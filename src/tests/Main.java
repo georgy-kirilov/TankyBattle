@@ -1,18 +1,17 @@
 package tests;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
 import drawers.tanks.ImageTankDrawer;
-import drawers.walls.ImageWallDrawer;
 import enums.Direction;
 import models.*;
 import models.contracts.GameObject;
-import models.tanks.HeavyTank;
 import models.tanks.QuickTank;
-import models.tanks.StandardTank;
 import models.tanks.Tank;
 import models.walls.*;
 
@@ -20,89 +19,21 @@ public class Main
 {
 	public static void main(String[] args) throws InterruptedException
 	{
-		JFrame f = new JFrame();
-		f.setBounds(0, 0, 650, 650);
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setVisible(true);
-		f.setLayout(null);
+		JFrame frame = new JFrame();
+		frame.setBounds(0, 0, 650, 650);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(null);
+		frame.setVisible(true);
 		
-		Battlefield b = new Battlefield();
-		b.setBounds(0, 0, 600, 600);
-		b.setPlayer(new QuickTank(90, 60, Direction.DOWN, new ImageTankDrawer()));
-
-		for (GameObject object : LevelParser.deserialize("./levels/level-one.txt"))
-		{
-			if (object instanceof Tank)
-			{
-				b.addEnemyTank((Tank) object);
-			}
-			if (object instanceof Wall)
-			{
-				b.addWall((Wall)object);				
-			}
-		}
+		Battlefield battlefield = new Battlefield();
+		battlefield.setBounds(0, 0, 600, 600);
+		battlefield.setPlayer(new QuickTank(90, 60, Direction.UP, new ImageTankDrawer()));
 		
-		//b.addWall(new BrickWall(40, 300, 30, 100, new ImageWallDrawer()));
-		b.addKeyListener(new KeyListener()
-		{
-			
-			@Override
-			public void keyTyped(KeyEvent e)
-			{
-				
-				
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent e)
-			{
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent e)
-			{
-				Direction currentDirection = getDirectionFromKey(e.getKeyChar());
-				
-				if (currentDirection == null)
-				{
-					return;
-				}
-				
-				if (currentDirection != b.getPlayer().getDirection())
-				{
-					b.rotatePlayer(currentDirection);
-				}
-				else
-				{
-					b.movePlayer();
-				}
-			}
-		});
-		//b.addWall(new BrickWall(140, 20, 10, 30, new ImageWallDrawer()));
-		//b.addEnemyTank(new HeavyTank(120, 60, Direction.DOWN));
-		f.add(b);
+		attachKeyListener(battlefield);
+		loadLevel(battlefield, "one");
+		frame.add(battlefield);
 		
-		
-		new Thread() {
-			public void run()
-			{
-				while (true)
-				{
-					try
-					{
-						Thread.sleep(30);
-					} catch (InterruptedException e)
-					{
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					b.update();
-					b.repaint();
-				}
-			}
-		}.run();
+		battlefield.run();
 	}
 	
 	public static Direction getDirectionFromKey(char rawKey)
@@ -118,5 +49,75 @@ public class Main
 		}
 		
 		return null;
+	}
+	
+	public static void attachMouseListener(Battlefield battlefield)
+	{
+		battlefield.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mousePressed(MouseEvent e)
+			{
+				if (e.getX() < battlefield.getPlayer().getX())
+				{
+					battlefield.rotatePlayer(Direction.LEFT);
+				}
+				else if (e.getX() > battlefield.getPlayer().getX() + battlefield.getPlayer().getWidth())
+				{
+					battlefield.rotatePlayer(Direction.RIGHT);
+				}
+				else if (e.getY() < battlefield.getPlayer().getY())
+				{
+					battlefield.rotatePlayer(Direction.UP);
+				}
+				else if (e.getY() > battlefield.getPlayer().getY() + battlefield.getPlayer().getHeight())
+				{
+					battlefield.rotatePlayer(Direction.DOWN);
+				}
+				
+				battlefield.movePlayer();
+			}
+		});
+	}
+	
+	public static void attachKeyListener(Battlefield battlefield)
+	{
+		battlefield.addKeyListener(new KeyAdapter()
+		{		
+			@Override
+			public void keyTyped(KeyEvent e)
+			{
+				Direction currentDirection = getDirectionFromKey(e.getKeyChar());
+				
+				if (currentDirection == null)
+				{
+					return;
+				}
+				
+				if (currentDirection != battlefield.getPlayer().getDirection())
+				{
+					battlefield.rotatePlayer(currentDirection);
+				}
+				else
+				{
+					battlefield.movePlayer();
+				}
+			}
+		});
+	}
+	
+	public static void loadLevel(Battlefield b, String level)
+	{
+		for (GameObject object : LevelParser.deserialize("./levels/level-" + level + ".txt"))
+		{
+			if (object instanceof Tank)
+			{
+				b.addEnemyTank((Tank) object);
+			}
+			if (object instanceof Wall)
+			{
+				b.addWall((Wall)object);				
+			}
+		}
 	}
 }

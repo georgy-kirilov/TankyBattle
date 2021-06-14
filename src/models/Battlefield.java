@@ -15,6 +15,8 @@ import models.walls.Wall;
 
 public class Battlefield extends JPanel
 {
+	private static final int SLEEP_DURATION = 30;
+	
 	private static final long serialVersionUID = 1L;
 	
 	private final Collection<GameObject> gameObjects;
@@ -29,6 +31,31 @@ public class Battlefield extends JPanel
 		
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setFocusable(true);
+	}
+	
+	public void run()
+	{
+		new Thread()
+		{
+			public void run()
+			{
+				while (true)
+				{
+					try
+					{
+						Thread.sleep(SLEEP_DURATION);
+					}
+					catch (InterruptedException e)
+					{
+						e.printStackTrace();
+					}
+					
+					update();
+					repaint();
+				}
+			}
+		}
+		.run();
 	}
 	
 	public void setPlayer(Tank player)
@@ -73,7 +100,7 @@ public class Battlefield extends JPanel
 		enemyTanks.add(enemyTank);
 	}
 	
-	public void update()
+	private void update()
 	{
 		for (Tank enemyTank : enemyTanks)
 		{

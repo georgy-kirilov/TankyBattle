@@ -12,6 +12,7 @@ import common.GlobalConstants;
 import drawers.tanks.ImageTankDrawer;
 import drawers.walls.ImageWallDrawer;
 import models.contracts.GameObject;
+import models.tanks.HeavyTank;
 import models.tanks.StandardTank;
 import models.walls.BrickWall;
 
@@ -50,6 +51,11 @@ public class LevelParser
 					if (symbol == GlobalConstants.GameObjectSymbols.StandardTank)
 					{
 						object = new StandardTank(x, y, GlobalConstants.INITIAL_TANK_DIRECTION, new ImageTankDrawer());
+					}
+					
+					if (symbol == GlobalConstants.GameObjectSymbols.HeavyTank)
+					{
+						object = new HeavyTank(x, y, GlobalConstants.INITIAL_TANK_DIRECTION, new ImageTankDrawer());
 					}
 					
 					objects.add(object);
