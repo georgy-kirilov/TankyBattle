@@ -13,6 +13,7 @@ import models.contracts.GameObject;
 import models.tanks.HeavyTank;
 import models.tanks.QuickTank;
 import models.tanks.StandardTank;
+import models.tanks.Tank;
 import models.walls.*;
 
 public class Main
@@ -27,14 +28,18 @@ public class Main
 		
 		Battlefield b = new Battlefield();
 		b.setBounds(0, 0, 600, 600);
-		//b.addWall(new BrickWall(20, 20, 30, 100, new ImageWallDrawer()));
-		b.addEnemyTank(new HeavyTank(180, 60, Direction.RIGHT, new ImageTankDrawer()));
 		b.setPlayer(new QuickTank(90, 60, Direction.DOWN, new ImageTankDrawer()));
-		//b.addWall(new BrickWall(120, 400, 30, 100, new ImageWallDrawer()));
-		
+
 		for (GameObject object : LevelParser.deserialize("./levels/level-one.txt"))
 		{
-			b.addWall((Wall)object);
+			if (object instanceof Tank)
+			{
+				b.addEnemyTank((Tank) object);
+			}
+			if (object instanceof Wall)
+			{
+				b.addWall((Wall)object);				
+			}
 		}
 		
 		//b.addWall(new BrickWall(40, 300, 30, 100, new ImageWallDrawer()));
@@ -87,7 +92,7 @@ public class Main
 				{
 					try
 					{
-						Thread.sleep(60);
+						Thread.sleep(30);
 					} catch (InterruptedException e)
 					{
 						// TODO Auto-generated catch block

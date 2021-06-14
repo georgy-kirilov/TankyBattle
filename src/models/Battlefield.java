@@ -84,6 +84,7 @@ public class Battlefield extends JPanel
 				if (enemyTank != object && enemyTank.intersects(object))
 				{
 					enemyTank.moveBack();
+					enemyTank.rotate(Direction.random());
 					break;
 				}
 			}

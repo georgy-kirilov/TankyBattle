@@ -9,8 +9,10 @@ import java.util.Collection;
 import java.util.List;
 
 import common.GlobalConstants;
+import drawers.tanks.ImageTankDrawer;
 import drawers.walls.ImageWallDrawer;
 import models.contracts.GameObject;
+import models.tanks.StandardTank;
 import models.walls.BrickWall;
 
 public class LevelParser
@@ -40,9 +42,14 @@ public class LevelParser
 					int x = col * GlobalConstants.CELL_SIZE;
 					GameObject object = null;
 					
-					if (symbol == 'b')
+					if (symbol == GlobalConstants.GameObjectSymbols.BrickWall)
 					{
 						object = new BrickWall(x, y, new ImageWallDrawer());
+					}
+					
+					if (symbol == GlobalConstants.GameObjectSymbols.StandardTank)
+					{
+						object = new StandardTank(x, y, GlobalConstants.INITIAL_TANK_DIRECTION, new ImageTankDrawer());
 					}
 					
 					objects.add(object);
